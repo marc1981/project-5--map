@@ -1,0 +1,1 @@
+This project is still in the early stages of development. When it is completed, it will be a map of the state of Texas with markers showing where all (reported) police officer involved shootings have occured during September, 2015. It will pull information from the census bureau on the areas' demographics, including poverty levels and minority percentage in the populution.
