@@ -105,7 +105,7 @@ var incidentData = [
 		'long': -96.774536,
 		'information': [{'race_ethnicity': 'hispanic',
 					'status': 'death', 
-					'age': '24'}],,
+					'age': '24'}],
 		'date': '9/21/2015',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/DallasPoliceDepartment-2015-0000005.pdf'
 	},

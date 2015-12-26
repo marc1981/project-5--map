@@ -29,7 +29,7 @@ $(function(){
 		this.graphic = ko.computed(function(){
 			var graphic;
 			var status = this.information()[0].status();
-			graphic = 'img/' + status + .png;
+			graphic = 'img/' + status + '.png';
 			return {'anchor': new google.maps.Point(12,12),
 					'url': graphic};
 		}, this);
@@ -42,10 +42,10 @@ $(function(){
 
 		this.searchable = ko.computed(function(){
 			var searchable = this.street();
-			for (var i = 0, i < this.information().length; i++){
+			for (var i = 0; i < this.information().length; i++){
 				searchable += " " + this.information()[i].race_ethnicity();
 			}
-			for (var i = 0, i < this.information().length; i++){
+			for (var i = 0; i < this.information().length; i++){
 				searchable += " " + this.information()[i].status();
 			}
 			return searchable.toUpperCase();
@@ -71,8 +71,12 @@ $(function(){
 				imageSource = "img/" + this.status() + "_inactive.png";
 			}
 			return imageSource;
-
-		})
+		}, this);
+		this.reveal = ko.computed(function(){
+			var revealStatus = this.display() ? "Mask " : "Reveal ";
+			revealStatus += "Incident resulted in " + this.status() + ".";
+			return revealStatus;
+		}, this);
 	}
 
 })
