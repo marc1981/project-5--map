@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Knockout</title>
+        <style type="text/css">
+        div{
+            text-align: center;
+        }
+        ul{
+            text-align: left;
+        }
+        </style>
+    </head>
+    <body>
+        <ul data-bind="foreach: catList">
+            <li data-bind="text: name, click: $parent.setCat"></li>
+        </ul>
+        <div data-bind="with: currentCat">
+            <h1 data-bind="text: title"></h1> 
+            <div id="cat">
+                <h2 id="cat-name" data-bind="text: name"></h2>
+                <div id="cat-count" data-bind="text: clickCount"></div>
+                <img src="" alt="target" data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}">
+ 
+                <div>
+                    <h3>Nicknames:</h3>
+                        <ul data-bind="foreach: nicknames">
+                            <li data-bind="text: $data"></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/jquery.tmpl.js"></script>
+        <script src="js/knockout-3.4.0.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
