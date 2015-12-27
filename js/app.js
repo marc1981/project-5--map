@@ -6,7 +6,7 @@ $(function(){
 	var Shooting = function(data){
 		this.street = ko.observable(data.street);
 		this.lat = ko.observable(data.lat);
-		this.long = ko.observable(data.long);
+		this.lng = ko.observable(data.lng);
 		this.visible = typeof data.visible === 'boolean' ?
             ko.observable(data.visible) : ko.observable(true);
     	this.information = ko.observableArray([]);
@@ -19,16 +19,21 @@ $(function(){
       		});
 		}
 
+		this.eventDate = ko.observable(new Date(data.date).toDateString());
+
 		this.positionMarker = ko.computed(function(){
 			return {
 				'lat': this.lat(),
-				'long': this.long()
+				'lng': this.lng()
 			};
 		}, this);
 
 		this.graphic = ko.computed(function(){
 			var graphic;
-			var status = this.information()[0].status();
+			var status = 'injury_death'; 
+			if(this.information()){
+				status = this.information()[0].status().toLowerCase();
+			};
 			graphic = 'img/' + status + '.png';
 			return {'anchor': new google.maps.Point(12,12),
 					'url': graphic};
@@ -36,8 +41,8 @@ $(function(){
 
 		this.mapPoint = ko.observable(new google.maps.Marker({
 			position: this.positionMarker(),
-			title: this.street(),
-			graphic: this.graphic()
+			title: this.street() + " - " + this.eventDate(),
+			icon: this.graphic()
 		}));
 
 		this.searchable = ko.computed(function(){
@@ -89,7 +94,7 @@ $(function(){
 	    self.datastatus = ko.observable({
 	      fetchingData: ko.observable(true),
 	      errors: ko.observableArray([])
-	    });
+		});
 
 	    self.textSearch = ko.observable("");
 
@@ -116,9 +121,7 @@ $(function(){
       }
     });
 
-    /* Alphabetize the stadium list */
     incidentDataMain = incidentData.sort(function(a, b) {
-      /* Upper case so sort is case insensitive. */
       var aup = a.street.toUpperCase();
       var bup = b.street.toUpperCase();
       if (aup < bup) {
@@ -127,14 +130,14 @@ $(function(){
       if (aup > bup) {
         return 1;
       }
-      // a must be equal to b
+
       return 0;
     });
 
     for (var location in incidentDataMain) {
-      self.locations.push(new Location(incidentData[location]));
-      for (var i = 0; i < incidentData[location].status.length; i++) {
-        var place = incidentData[location].status[i];
+      self.locations.push(new Shooting(incidentData[location]));
+      for (var i = 0; i < incidentData[location].information.length; i++) {
+        var place = incidentData[location].information[i];
         if (statusArray.indexOf(place.status) < 0) {
           statusArray.push(place.status);
         }
@@ -151,13 +154,13 @@ $(function(){
 
     self.showMarker = function(location) {
       self.toggleMenu(false);
-      remoteDataHelper.reset();
-      location.marker().setAnimation(google.maps.Animation.BOUNCE);
+      //remoteDataHelper.reset();
+      location.mapPoint().setAnimation(google.maps.Animation.BOUNCE);
       window.setTimeout(function() {
-        location.marker().setAnimation(null);
+        location.mapPoint().setAnimation(null);
       }, 2000);
-      self.selectedStadium(stadium);
-      remoteDataHelper.getRemoteData(location, self.datastatus());
+      self.selectedLocation(location);
+      //remoteDataHelper.getRemoteData(location, self.datastatus());
     };
 
     self.toggleMenu = function(open) {
@@ -170,6 +173,132 @@ $(function(){
       filter.display(!filter.display());
     };
 
-	}
+    self.filterList = function() {
+      var shoot;
+      var visible;
+      /* Convert the value in the search box to all upper case, trim white
+         space and split into an array of terms. */
+      var searchstring = self.textSearch().toUpperCase().trim();
+      var searchterms = searchstring.split(/\s+/);
+      var visibleStatusArray = [];
+      var emptysearch = true;
+      for (var filter in self.filters()) {
+        if (self.filters()[filter].display()) {
+          visibleStatusArray.push(self.filters()[filter].status());
+        }
+      }
 
-})
+    };
+
+  ko.bindingHandlers.googlemap = {
+
+    init: function(element, valueAccessor, allBindings,
+                    viewModel, bindingContext) {
+      var mapOptions = {
+        zoom: 7,
+        center: { lat: 31.00746, lng: -99.086765 },
+        disableDefaultUI: true,
+        scrollwheel: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.SMALL,
+            position: google.maps.ControlPosition.RIGHT_BOTTOM
+        },
+      };
+      var ctx = bindingContext.$data;
+
+      ctx.map = new google.maps.Map(element, mapOptions);
+
+      google.maps.event.addListenerOnce(ctx.map, 'tilesloaded', function(e) {
+        console.log("adding event listener");
+        var control = document.createElement('div');
+        control.id = 'location-list-control';
+        var list = $('#location-list').detach();
+        ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
+        list.appendTo('#location-list-control');
+        $('#shoot-list-menu-toggle').click(function() {
+          ctx.toggleMenu();
+        });
+      });
+    },
+
+    update: function(element, valueAccessor, allBindings,
+                      viewModel, bindingContext) {
+      var value = valueAccessor;
+      var ctx = bindingContext.$data;
+      console.log("Update map");
+      for (var i in value().selectedLocation()) {
+        var location = value().selectedLocation()[i];
+        if (location.visible.peek()) {
+          location.mapPoint().setMap(ctx.map);
+          addClickListener(location.mapPoint(), location, ctx);
+        } else {
+          location.mapPoint().setMap(null);
+          console.log("Removing from map");
+        }
+      }
+
+      function addClickListener(mapPoint, data, bindingContext) {
+        google.maps.event.clearListeners(mapPoint, 'click');
+        google.maps.event.addListener(mapPoint, 'click', function() {
+          bindingContext.showMarker(data);
+        });
+      }
+    }
+  };
+
+  ko.bindingHandlers.infowindow = {
+
+    init: function(element, valueAccessor, allBindings,
+                    viewModel, bindingContext) {
+      var ctx = bindingContext.$data;
+      ctx.infowindow = new google.maps.InfoWindow(
+        { content: '<div id="info-window"></div>' });
+    },
+
+
+    update: function(element, valueAccessor, allBindings,
+                      viewModel, bindingContext) {
+      console.log("Update info window");
+      var ctx = bindingContext.$data;
+      var infowindow = ctx.infowindow;
+      var location = valueAccessor().location();
+      var messages = valueAccessor().messages();
+
+      infowindow.close();
+      if (location !== null) {
+        infowindow.open(ctx.map, location.mapPoint());
+        addDOMListener(infowindow);
+
+        var gettingdata = valueAccessor().messages().gettingdata();
+        var errors = valueAccessor().messages().errors();
+
+      } else {
+        console.log("Location is null");
+      }
+
+      function addDOMListener(infowindow) {
+        google.maps.event.addListener(infowindow, 'domready', function() {
+          var windowcontent = $('#selected-location-info').html();
+          $('#info-window').html(windowcontent);
+        });
+      }
+    }
+  };
+}
+
+  function decodeHtmlEntity(str) {
+    return str.replace(/&#(\d+);/g, function(match, dec) {
+      return String.fromCharCode(dec);
+    });
+  }
+
+  if (typeof google !== 'undefined') {
+    ko.applyBindings(new viewModel());
+  } else {
+    console.log("Error loading Google Maps API");
+    $('.map-canvas').hide();
+    $('body').prepend('<div class="error-dialog"><p class="error-message">' +
+                      'There was an error loading Google Maps.</p></div>');
+  }
+});

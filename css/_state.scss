@@ -1,0 +1,6 @@
+// Styling for menu for smaller screens.
+.stad-menu-offsmall {
+  @media screen and (max-width: 549px) {
+    display: none;
+  }
+}
