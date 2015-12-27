@@ -6,7 +6,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'black',
 					'status': 'injury', 
 					'age': '30'}],
-		'date': '9/2/2015',
+		'date': '2015,8,2',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/FreeportPoliceDepartment-2015-0000002.pdf'
 	},
 	{
@@ -16,7 +16,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'injury', 
 					'age': '55'}],
-		'date': '9/3/2015',
+		'date': '2015,8,3',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PlanoPoliceDepartment-2015-0000007.pdf'
 	},
 	{
@@ -26,7 +26,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'death', 
 					'age': '36'}],
-		'date': '9/4/2015',
+		'date': '2015,8,4',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ParkerCountySheriff-2015-0000013.pdf'
 	},
 	{
@@ -36,7 +36,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'black',
 					'status': 'injury', 
 					'age': '21'}],
-		'date': '9/5/2015',
+		'date': '2015,8,5',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/HoustonPoliceDepartment-2015-0000001.pdf'
 	},
 	{
@@ -46,7 +46,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'injury', 
 					'age': '44'}],
-		'date': '9/8/2015',
+		'date': '2015,8,8',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/IrvingPoliceDepartment-2015-0000023.pdf'
 	},
 	{
@@ -56,7 +56,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'hispanic',
 					'status': 'injury', 
 					'age': '29'}],
-		'date': '9/9/2015',
+		'date': '2015,8,9',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/DallasPoliceDepartment-2015-0000040.pdf'
 	},
 	{
@@ -66,7 +66,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'death', 
 					'age': '29'}],
-		'date': '9/13/2015',
+		'date': '2015,8,13',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/AlvinPoliceDepartment-2015-0000008.pdf'
 	},
 	{
@@ -76,7 +76,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'injury', 
 					'age': 'unknown'}],
-		'date': '9/16/2015',
+		'date': '2015,8,16',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/BalchSpringsPoliceDepartment-2015-0000003.pdf'
 	},
 	{
@@ -86,7 +86,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'black',
 					'status': 'injury', 
 					'age': '22'}],
-		'date': '9/18/2015',
+		'date': '2015,8,18',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/BexarCountyConstablePrecinct4-2015-0000010.pdf'
 	},
 	{
@@ -96,7 +96,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'hispanic',
 					'status': 'injury', 
 					'age': '21'}],
-		'date': '9/21/2015',
+		'date': '2015,8,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ElPasoPoliceDepartment-2015-0000004.pdf'
 	},
 	{
@@ -106,7 +106,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'hispanic',
 					'status': 'death', 
 					'age': '24'}],
-		'date': '9/21/2015',
+		'date': '2015,8,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/DallasPoliceDepartment-2015-0000005.pdf'
 	},
 	{
@@ -116,7 +116,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'death', 
 					'age': '21'}],
-		'date': '9/21/2015',
+		'date': '2015,8,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/TexasDepartmentofPublicSafety-2015-0000036.pdf'
 	},
 	{
@@ -126,7 +126,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'other/unknown',
 					'status': 'death', 
 					'age': '35'}],
-		'date': '9/23/2015',
+		'date': '2015,8,23',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/McKinneyPoliceDepartment-2015-0000038.pdf'
 	},
 	{
@@ -136,7 +136,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'black',
 					'status': 'injury', 
 					'age': '52'}],
-		'date': '9/24/2015',
+		'date': '2015,8,24',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PortArthurPoliceDepartment-2015-0000018.pdf'
 	},
 	{
@@ -146,7 +146,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'black',
 					'status': 'injury', 
 					'age': '38'}],
-		'date': '9/25/2015',
+		'date': '2015,8,25',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ArlingtonPoliceDepartment-2015-0000015.pdf'
 	},
 	{
@@ -156,7 +156,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'hispanic',
 					'status': 'death', 
 					'age': '41'}],
-		'date': '9/27/2015',
+		'date': '2015,8,27',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PonderPoliceDepartment-2015-0000066.pdf'
 	},
 	{
@@ -166,7 +166,7 @@ var incidentData = [
 		'information': [{'race_ethnicity': 'white',
 					'status': 'injury', 
 					'age': '49'}],
-		'date': '9/30/2015',
+		'date': '2015,8,30',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/RockwallCountySheriffsOffice-2015-0000026.pdf'
 	}
 ];
