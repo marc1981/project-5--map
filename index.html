@@ -33,17 +33,46 @@
             <input type="search" placeholder="Search locations..." id="location-search" data-bind="textInput: textSearch"/><button class="search-box-clear" data-bind="click: clearTextSearch"><span class="fa fa-times-circle"></span></button>
           </div>
           <ul class="shoot-list-filters" data-bind="foreach: filters">
-            <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
-              <img data-bind="attr: {src: imageSrc, alt: status}" />
+            <li data-bind="click: $parent.toggleFilter, attr: {title: this.street }">
+              <img data-bind="attr: {src: this.imageSrc, alt: this.status}" />
             </li>
           </ul>
           <div class="shoot-list">
             <p class="shoot-list-empty" data-bind="visible: emptysearch">No matching locations found.</p>
-
+            <ul data-bind="foreach: location" class="shoot-list-ul">
+              <li data-bind="visible: visible, click: $parent.showMarker">
+                <p data-bind="text: street" class="shoot-list-name"></p>
+                <div data-bind="foreach: information">
+                  <p class="shoot-list-data"><span data-bind="text: street"></span> (<span data-bind="text: race_ethnicity"></span>)</p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-
+      <div id="selected-location-info" data-bind="with: selectedLocation">
+        <h1 data-bind="text: street"></h1>
+        <div data-bind="foreach: information">
+          <p class="info-information"><span data-bind="text: street"></span> (<span data-bind="text: status"></span>)</p>
+        </div>
+        <div data-bind="with: $parent.datastatus()">
+          <div class="info-messages" data-bind="visible: gettingdata">
+            <p><span class="fa fa-spinner fa-pulse"></span> Getting data.</p>
+          </div>
+          <div class="info-errors" data-bind="visible: errors().length > 0">
+            <ul data-bind="foreach: errors">
+              <li><span class="fa fa-exclamation-triangle"></span>
+                <span data-bind="text: $data"></span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="info-articles" data-bind="visible: articles().length > 0">
+          <h2>Recent Census</h2>
+          <ul data-bind="foreach: articles">
+            <li><a data-bind="text: headline, attr: {href: url}"></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/knockout-3.4.0.js"></script>

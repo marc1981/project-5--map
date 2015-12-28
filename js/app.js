@@ -83,6 +83,62 @@ $(function(){
 			return revealStatus;
 		}, this);
 	};
+  	
+  var remoteDataHelper = {
+    gettingCensusData: false,
+
+    isGettingData: function() {
+      return this.gettingCensusData;
+    },
+
+    getRemoteData: function(shoot, datastatus) {
+      console.log("Get remote data");
+      datastatus.gettingdata(this.isGettingData());
+      datastatus.errors([]);
+      if (shoot.articles().length === 0) {
+        this.getCensusData(shoot, datastatus);
+      }
+    },
+	
+	getCensusData: function(shoot, datastatus) {
+      var self = this;
+      if (!self.gettingCensusData) {
+        self.gettingCensusData = true;
+        datastatus.gettingdata(self.isGettingData());
+        $.ajax({
+          dataType: "json",
+          url: buildCenusURL(shoot.census_code()),
+          success: function(data) {
+            var docs;
+            if (data.status === 'OK' && shoot.articles.length === 0) {
+              docs = data.response.docs;
+              for (var doc in docs) {
+                stad.articles.push({
+                  'url': docs[doc].web_url,
+                  'headline': decodeHtmlEntity(docs[doc].headline.main)
+                });
+              }
+              console.log("Message");
+            } else {
+              console.log("Error getting data");
+              datastatus.errors.push("Error getting data");
+            }
+            self.gettingCensusData = false;
+            datastatus.gettingdata(self.isGettingData());
+          },
+          error: function(jqhxr, status, error) {
+            console.log("Error getting NY Times articles");
+            self.gettingCensusData = false;
+            datastatus.errors.push("Error getting data");
+            datastatus.gettingdata(self.isGettingData());
+          }
+        });
+      }
+    },
+    reset: function() {
+      this.gettingCensusData = false;
+    }
+  }; // Remote data helper
 
 	var viewModel = function(){
 		var self = this;
@@ -92,7 +148,7 @@ $(function(){
 		self.map = null;
 		self.infowindow= null;
 	    self.datastatus = ko.observable({
-	      fetchingData: ko.observable(true),
+	      gettingData: ko.observable(true),
 	      errors: ko.observableArray([])
 		});
 
@@ -154,13 +210,13 @@ $(function(){
 
     self.showMarker = function(location) {
       self.toggleMenu(false);
-      //remoteDataHelper.reset();
+      remoteDataHelper.reset();
       location.mapPoint().setAnimation(google.maps.Animation.BOUNCE);
       window.setTimeout(function() {
         location.mapPoint().setAnimation(null);
       }, 2000);
       self.selectedLocation(location);
-      //remoteDataHelper.getRemoteData(location, self.datastatus());
+      remoteDataHelper.getRemoteData(location, self.datastatus());
     };
 
     self.toggleMenu = function(open) {
@@ -187,8 +243,72 @@ $(function(){
           visibleStatusArray.push(self.filters()[filter].status());
         }
       }
+      /*
+         Close the infowindow on the selected stadium if it doesn't pass the
+         filters, otherwise, it will open back up again if you revert to no
+         filters. You have to do this now because you can't close an
+         infowindow attached to a marker that's not attached to the map.
+      */
+      if (self.selectedLocation() !== null &&
+          !locationClearsFilters(self.selectedLocation(), searchterms, visiblelocations)) {
+        self.selectedLocation(null);
+        console.log("Setting location to null");
+      }
 
+      for (var i = 0; i < self.locations().length; i++) {
+        shoot = self.locations()[i];
+        visible = locationClearsFilters(shoot, searchterms, visiblelocations);
+        shoot.visible(visible);
+        if (emptysearch && visible) {
+          emptysearch = false;
+        }
+      }
+
+      self.locations.valueHasMutated();
+      self.emptysearch(emptysearch);
+      setLastChildToClass(".shoot-list-ul", "shoot-list-last");
     };
+
+    self.textSearch.subscribe(self.filterList);
+    for (var j = 0; j < statusArray.length; j++) {
+      status = new sortByStatus({ 'status': statusArray[j], 'display': true });
+      status.display.subscribe(self.filterList);
+      self.filters.push(status);
+    }
+  }; // ViewModel
+
+
+  var locationClearsFilters = function(location, searchterms, visiblelocations) {
+    var visible = false;
+    if (isLocationDisplayed(location, visiblelocations)) {
+      for (var j = 0; j < searchterms.length; j++) {
+        if (location.searchString().indexOf(searchterms[j]) >= 0) {
+          visible = true;
+          break;
+        }
+      }
+    }
+    return visible;
+  };
+
+  var isLocationDisplayed = function(location, filterlocation) {
+    var displayed = false;
+    var victimcond = location.victimCondition();
+    for (var status in victimcond) {
+      if (filterlocation.indexOf(victimcond[status]) >= 0) {
+        displayed = true;
+        break;
+      }
+    }
+    return displayed;
+  };
+
+
+  var setLastChildToClass = function(element, classtoapply) {
+    $("." + classtoapply).removeClass(classtoapply);
+    $(element).children().filter(':visible:last').addClass(classtoapply);
+  };
+
 
   ko.bindingHandlers.googlemap = {
 
@@ -198,6 +318,8 @@ $(function(){
         zoom: 7,
         center: { lat: 31.00746, lng: -99.086765 },
         disableDefaultUI: true,
+        cursor: 'url(img/t2.png)',
+        draggableCursor: 'url(img/t2.png), crosshair',
         scrollwheel: false,
         zoomControl: true,
         zoomControlOptions: {
@@ -285,7 +407,13 @@ $(function(){
       }
     }
   };
-}
+
+  function buildCenusURL(name) {
+  	var census_code = Shooting.census_code();
+  	var urlCensus = 'http://api.census.gov/data/2012/acs5?get=B06012_002E,NAME&for=county:{county_code}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
+  	var formattedCensusURL = urlCensus.replace('{county_code}', census_code);
+    return formattedCensusURL;
+  }
 
   function decodeHtmlEntity(str) {
     return str.replace(/&#(\d+);/g, function(match, dec) {

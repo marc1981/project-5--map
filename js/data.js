@@ -1,6 +1,7 @@
 var incidentData = [
 	{
 		'street': '1010 Magnolia Street, Freeport, TX 77541',
+		'census_code': 439,
 		'lat': 28.944891,
 		'lng': -95.356262,
 		'information': [{'race_ethnicity': 'black',
@@ -11,6 +12,7 @@ var incidentData = [
 	},
 	{
 		'street': '4840 E. Plano Parkway, Plano, TX 75074',
+		'census_code': 085,
 		'lat': 33.008157,
 		'lng': -96.642206,
 		'information': [{'race_ethnicity': 'white',
@@ -21,6 +23,7 @@ var incidentData = [
 	},
 	{
 		'street': '101 Couch Court, Springtown, TX 76082',
+		'census_code': 367,
 		'lat': 32.916472,
 		'lng': -97.634237,
 		'information': [{'race_ethnicity': 'white',
@@ -31,6 +34,7 @@ var incidentData = [
 	},
 	{
 		'street': '4926 Chennault Road, Houston, TX 77033',
+		'census_code': 201,
 		'lat': 29.681614,
 		'lng': -95.344949,
 		'information': [{'race_ethnicity': 'black',
@@ -41,6 +45,7 @@ var incidentData = [
 	},
 	{
 		'street': '1500 Range Road, DFW Airport, TX 75261',
+		'census_code': 113,
 		'lat': 32.874895,
 		'lng': -97.061037,
 		'information': [{'race_ethnicity': 'white',
@@ -51,6 +56,7 @@ var incidentData = [
 	},
 	{
 		'street': '2435 W. Northwest Hwy, Dallas, TX 75220',
+		'census_code': 113,
 		'lat': 32.860688,
 		'lng': -96.882686,
 		'information': [{'race_ethnicity': 'hispanic',
@@ -61,6 +67,7 @@ var incidentData = [
 	},
 	{
 		'street': '300 Block Galley Way, Freeport, TX 77541',
+		'census_code': 039,
 		'lat': 29.001476,
 		'lng': -95.305232,
 		'information': [{'race_ethnicity': 'white',
@@ -71,6 +78,7 @@ var incidentData = [
 	},
 	{
 		'street': '11513 Marriot, Balch Springs, TX 75180',
+		'census_code': 113,
 		'lat': 32.730317,
 		'lng': -96.629162,
 		'information': [{'race_ethnicity': 'white',
@@ -81,6 +89,7 @@ var incidentData = [
 	},
 	{
 		'street': '5027 Pecan Grove, San Antonio, TX 78222',
+		'census_code': 029,
 		'lat': 29.3754,
 		'lng': -98.42063,
 		'information': [{'race_ethnicity': 'black',
@@ -91,6 +100,7 @@ var incidentData = [
 	},
 	{
 		'street': '9030 Betel Apartment Complex, El Paso, TX 79915',
+		'census_code': 141,
 		'lat': 31.704927,
 		'lng': -106.310623,
 		'information': [{'race_ethnicity': 'hispanic',
@@ -101,6 +111,7 @@ var incidentData = [
 	},
 	{
 		'street': '10800 Stone Canyon Road, Dallas, TX 75230',
+		'census_code': 113,
 		'lat': 32.894743,
 		'lng': -96.774536,
 		'information': [{'race_ethnicity': 'hispanic',
@@ -111,6 +122,7 @@ var incidentData = [
 	},
 	{
 		'street': '800 Deshong Road, Paris, TX 75460',
+		'census_code': 277,
 		'lat': 33.687355,
 		'lng': -95.547678,
 		'information': [{'race_ethnicity': 'white',
@@ -121,6 +133,7 @@ var incidentData = [
 	},
 	{
 		'street': '1300 Eldarodo Pkwy, McKinney, TX 75069',
+		'census_code': 085,
 		'lat': 33.177661,
 		'lng': -96.637181,
 		'information': [{'race_ethnicity': 'other/unknown',
@@ -131,6 +144,7 @@ var incidentData = [
 	},
 	{
 		'street': '942 West Gulfway Drive, Port Arthur, TX 77640',
+		'census_code': 245,
 		'lat': 29.869673,
 		'lng': -93.955587,
 		'information': [{'race_ethnicity': 'black',
@@ -141,6 +155,7 @@ var incidentData = [
 	},
 	{
 		'street': '500 N Cooper Street, Arlington, TX 76012',
+		'census_code': 439,
 		'lat': 32.741067,
 		'lng': -97.114715,
 		'information': [{'race_ethnicity': 'black',
@@ -151,6 +166,7 @@ var incidentData = [
 	},
 	{
 		'street': '600 Block Robinson Road, Ponder, TX 76259',
+		'census_code': 121,
 		'lat': 33.16663,
 		'lng': -97.277833,
 		'information': [{'race_ethnicity': 'hispanic',
@@ -161,6 +177,7 @@ var incidentData = [
 	},
 	{
 		'street': '972 T.L. Townsend Drive, Rockwall, TX 75087',
+		'census_code': 397,
 		'lat': 32.920682,
 		'lng': -96.453196,
 		'information': [{'race_ethnicity': 'white',
