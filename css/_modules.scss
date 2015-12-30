@@ -1,23 +1,23 @@
-//.stad-list is the stadium list control
-.stad-list-control {
+//.event-list is the stadium list control
+.event-list-control {
   margin: 16px;
   padding: 0px;
   width: 246px;
 }
 
-.stad-list-menu {
+.event-list-menu {
   width: 100%;
   margin-bottom: 4px;
 }
 
-.stad-list {
+.event-list {
   margin: 4px 0 0 0;
   padding: 4px 8px;
   background-color: transparentize($window-background-color, 0.3);
   border: 1px solid $light-border;
 }
 
-.stad-list-ul {
+.event-list-ul {
   margin: 0;
   padding: 0;
   overflow-y: scroll;
@@ -36,7 +36,7 @@
     cursor: pointer;
     background-color: $hover-background-color;
   }
-  li:last-child, .stad-list-last {
+  li:last-child, .event-list-last {
     border-bottom: none;
   }
   @media screen and (max-height: 399px) {
@@ -53,11 +53,11 @@
   }
 }
 
-.stad-list-name {
+.event-list-name {
   font-weight: bold;
 }
 
-.stad-list-data {
+.event-list-data {
   color: $secondary-body-color;
 }
 
@@ -94,7 +94,7 @@
 }
 
 // Filters module
-.stad-list-filters {
+.event-list-filters {
   margin: 4px 0 0 0;
   padding: 0;
   li {
@@ -119,7 +119,7 @@
 }
 
 // Info window modules
-.info-teams {
+.info-information {
   color: $secondary-body-color;
   margin: 4px 0;
 }
@@ -137,7 +137,7 @@
   }
 }
 
-.info-articles {
+.info-censusData {
   ul {
     padding: 0;
     li {

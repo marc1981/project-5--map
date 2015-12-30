@@ -1,60 +1,87 @@
 <!DOCTYPE html>
 <html>
   <head lang="en">
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<meta name="keywords" content="police shootings, Texas police, crime statistics, police use of force">
-	<meta name="author" content="Marc Anderson">
-	<meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September 2015">
-	<link rel="shortcut icon" href="img/favicon.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="keywords" content="police shootings, Texas police, crime statistics, police use of force">
+  <meta name="author" content="Marc Anderson">
+  <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September 2015">
+  <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/styleSass.scss">
+    <link rel="stylesheet" href="css/style.scss">
+    <link rel="stylesheet" href="css/lib/normalize.css">
     <title>One September In Texas: Peace Officer Involved Shootings</title>
     <style>
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
       .map-canvas { height: 100%; }
-      #controls { display: none; }
+      #controls {
+            background-color: white;
+            padding: 20px;
+            border: 2px solid red;
+            min-width: 200px;
+       }
+      .event-list-filters{
+        display: inline-flex;
+        list-style: none;
+      }
+
+      .event-list-filters li{
+        padding-right: 30px;
+      }
+      #incident-list{
+        padding: 20px;
+        font-family: helvetica;
+        font-size: 1.5em;
+      }
+      #incident-list li{
+        list-style: none;
+      }
+      .descriptions{
+        text-transform: uppercase;
+      }
     </style>
   </head>
   <body>
-    <div class="map-canvas" data-bind="googlemap: { selectedLocation: locations },
-          infowindow: { location: selectedLocation, messages: datastatus }"></div>
+    <div class="map-canvas" data-bind="googlemap: { incidents: incidents },
+          infowindow: { incident: selectedLocation, messages: datastatus }"></div>
     <div id ="controls">
-      <div id="location-list" class="shoot-list-control">
-        <div id="shoot-list-menu">
-          <button id="shoot-list-menu-toggle" class="shoot-list-menu">Search/Filters
+      <div id="incident-list" class="event-list-control">
+        <div id="event-list-menu">
+          <button id="event-list-menu-toggle" class="event-list-menu">Search/Filters
             <span class="fa fa-caret-down"></span></button>
         </div>
-          <div id="shoot-list-hideable" class="shoot-menu-offsmall">
+          <div id="event-list-hideable" class="event-menu-offsmall">
             <div class="search-box">
-            <input type="search" placeholder="Search locations..." id="location-search" data-bind="textInput: textSearch"/><button class="search-box-clear" data-bind="click: clearTextSearch"><span class="fa fa-times-circle"></span></button>
+            <input type="search" placeholder="Search incident locations..." id="incident-search" data-bind="textInput: searchtext"/><button class="search-box-clear" data-bind="click: clearSearchText"><span class="fa fa-times-circle"></span></button>
           </div>
-          <ul class="shoot-list-filters" data-bind="foreach: filters">
-            <li data-bind="click: $parent.toggleFilter, attr: {title: this.street }">
-              <img data-bind="attr: {src: this.imageSrc, alt: this.status}" />
+          <ul class="event-list-filters" data-bind="foreach: filters">
+            <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
+              <img data-bind="attr: {src: imgSrc, alt: status}" />
             </li>
           </ul>
-          <div class="shoot-list">
-            <p class="shoot-list-empty" data-bind="visible: emptysearch">No matching locations found.</p>
-            <ul data-bind="foreach: location" class="shoot-list-ul">
+          <div class="event-list">
+            <p class="event-list-empty" data-bind="visible: emptysearch">No matching locations found.</p>
+            <ul data-bind="foreach: incidents" class="event-list-ul">
               <li data-bind="visible: visible, click: $parent.showMarker">
-                <p data-bind="text: street" class="shoot-list-name"></p>
+                <p data-bind="text: status" class="event-list-name"></p>
                 <div data-bind="foreach: information">
-                  <p class="shoot-list-data"><span data-bind="text: street"></span> (<span data-bind="text: race_ethnicity"></span>)</p>
+                  <p class="incident-list-data">Shooting resulted in: <span data-bind="text: status"></span>. Race of suspect: <span data-bind="text: race_ethnicity"></span></p>
                 </div>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div id="selected-location-info" data-bind="with: selectedLocation">
-        <h1 data-bind="text: street"></h1>
+      <div id="selected-incident-info" data-bind="with: selectedLocation">
+        <h3 data-bind="text: street"></h3>
+        <h4 data-bind="text: eventDate"></h4>
         <div data-bind="foreach: information">
-          <p class="info-information"><span data-bind="text: street"></span> (<span data-bind="text: status"></span>)</p>
+          <p class="info-information">Shooting resulted in: <span class="descriptions" data-bind="text: status"></span></p>
+          <p class="info-information">Race/Ethnicity of Injuried or Dead: <span class="descriptions" data-bind="text: race_ethnicity"></span></p>
         </div>
+        <p class="info-information"><a data-bind='attr: {href:file_location}' target="_blank">Click to View Official Incident Report</a></p>
         <div data-bind="with: $parent.datastatus()">
           <div class="info-messages" data-bind="visible: gettingdata">
             <p><span class="fa fa-spinner fa-pulse"></span> Getting data.</p>
@@ -66,9 +93,9 @@
             </ul>
           </div>
         </div>
-        <div class="info-articles" data-bind="visible: articles().length > 0">
-          <h2>Recent Census</h2>
-          <ul data-bind="foreach: articles">
+        <div class="info-censusData" data-bind="visible: censusData().length > 0">
+          <h2>Recent Census Data</h2>
+          <ul data-bind="foreach: censusData">
             <li><a data-bind="text: headline, attr: {href: url}"></a></li>
           </ul>
         </div>
@@ -80,6 +107,6 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-c7fz6QBhSC8Y6UX6iGCdQdrNebqs918">
     </script>
     <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/testjs.js"></script>
   </body>
 </html>
