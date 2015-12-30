@@ -41,9 +41,20 @@
       .descriptions{
         text-transform: uppercase;
       }
+      #title-bar{
+        min-height: 60px;
+        text-align: center;
+        font-size: 2em;
+        font-weight: bolder;
+        color: white;
+        background: black;
+        padding: 25px 0 10px 0;
+
+      }
     </style>
   </head>
   <body>
+  <div id="title-bar">One September In Texas: All Reported Peace Officer Involved Shootings</div>
     <div class="map-canvas" data-bind="googlemap: { incidents: incidents },
           infowindow: { incident: selectedLocation, messages: datastatus }"></div>
     <div id ="controls">
