@@ -17,7 +17,8 @@ $(function(){
 	    	this.information.push({
 	    		'race_ethnicity': ko.observable(data.information[i].race_ethnicity),
 	    		'age': ko.observable(data.information[i].age),
-	    		'status': ko.observable(data.information[i].status)
+	    		'status': ko.observable(data.information[i].status),
+	    		'carried_weapon': ko.observable(data.information[i].carried_weapon)
 	    	});
 	    }
 	
@@ -85,7 +86,29 @@ $(function(){
 			return hoverstring;
 		}, this);
 	};
-
+/*  var SortbyArmed = function(data) {
+    this.carried_weapon = ko.observable(data.carried_weapon);
+    this.display = ko.observable(data.display);
+    this.imgSrcArmed = ko.computed(function(){
+      var filename;
+      if (this.display()) {
+        filename = "img/" + this.carried_weapon() + ".png"
+      } else {
+        filename = "img/" + this.carried_weapon() + "-deselect.png"
+      }
+      return filename;
+    }, this);
+    this.hover = ko.computed(function(){
+      var hoverstring = this.display() ? 'Click to hide all ' : 'Click to display all ';
+      if(this.carried_weapon() == 'armed'){
+        hoverstring += 'injuried/dead who were carrying a weapon.';
+      }else{
+        hoverstring += 'injuried/dead who were unarmed.';
+      }
+      return hoverstring;
+    }, this);
+  };
+*/
 	var remoteDataHelper = {
 		gettingCensusData: false,
 
@@ -182,18 +205,18 @@ $(function(){
 
 		})
 */
-    incidentDataMain = incidentData.sort(function(a, b) {
-      var aup = a.street.toUpperCase();
-      var bup = b.street.toUpperCase();
-      if (aup < bup) {
-        return -1;
-      }
-      if (aup > bup) {
-        return 1;
-      }
+	    incidentDataMain = incidentData.sort(function(a, b) {
+	      var aup = a.street.toUpperCase();
+	      var bup = b.street.toUpperCase();
+	      if (aup < bup) {
+	        return -1;
+	      }
+	      if (aup > bup) {
+	        return 1;
+	      }
 
-      return 0;
-    });
+	      return 0;
+	    });
 
 		for (var incident in incidentDataMain) {
 		  self.incidents.push(new Incident(incidentData[incident]));

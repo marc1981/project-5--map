@@ -5,7 +5,8 @@ var incidentData = [
 		'lat': 28.944891,
 		'lng': -95.356262,
 		'information': [{'race_ethnicity': 'black',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'unarmed',
 					'age': '30'}],
 		'date': '2015,9,2',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/FreeportPoliceDepartment-2015-0000002.pdf'
@@ -16,7 +17,8 @@ var incidentData = [
 		'lat': 33.008157,
 		'lng': -96.642206,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '55'}],
 		'date': '2015,9,3',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PlanoPoliceDepartment-2015-0000007.pdf'
@@ -27,7 +29,8 @@ var incidentData = [
 		'lat': 32.916472,
 		'lng': -97.634237,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'armed', 
 					'age': '36'}],
 		'date': '2015,9,4',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ParkerCountySheriff-2015-0000013.pdf'
@@ -38,7 +41,8 @@ var incidentData = [
 		'lat': 29.681614,
 		'lng': -95.344949,
 		'information': [{'race_ethnicity': 'black',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '21'}],
 		'date': '2015,9,5',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/HoustonPoliceDepartment-2015-0000001.pdf'
@@ -49,7 +53,8 @@ var incidentData = [
 		'lat': 32.874895,
 		'lng': -97.061037,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'unarmed', 
 					'age': '44'}],
 		'date': '2015,9,8',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/IrvingPoliceDepartment-2015-0000023.pdf'
@@ -60,7 +65,8 @@ var incidentData = [
 		'lat': 32.860688,
 		'lng': -96.882686,
 		'information': [{'race_ethnicity': 'hispanic',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '29'}],
 		'date': '2015,9,9',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/DallasPoliceDepartment-2015-0000040.pdf'
@@ -71,7 +77,8 @@ var incidentData = [
 		'lat': 29.001476,
 		'lng': -95.305232,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'armed', 
 					'age': '29'}],
 		'date': '2015,9,13',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/AlvinPoliceDepartment-2015-0000008.pdf'
@@ -82,7 +89,8 @@ var incidentData = [
 		'lat': 32.730317,
 		'lng': -96.629162,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'unarmed', 
 					'age': 'unknown'}],
 		'date': '2015,9,16',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/BalchSpringsPoliceDepartment-2015-0000003.pdf'
@@ -93,7 +101,8 @@ var incidentData = [
 		'lat': 29.3754,
 		'lng': -98.42063,
 		'information': [{'race_ethnicity': 'black',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '22'}],
 		'date': '2015,9,18',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/BexarCountyConstablePrecinct4-2015-0000010.pdf'
@@ -104,7 +113,8 @@ var incidentData = [
 		'lat': 31.704927,
 		'lng': -106.310623,
 		'information': [{'race_ethnicity': 'hispanic',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '21'}],
 		'date': '2015,9,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ElPasoPoliceDepartment-2015-0000004.pdf'
@@ -115,7 +125,8 @@ var incidentData = [
 		'lat': 32.894743,
 		'lng': -96.774536,
 		'information': [{'race_ethnicity': 'hispanic',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'armed', 
 					'age': '24'}],
 		'date': '2015,9,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/DallasPoliceDepartment-2015-0000005.pdf'
@@ -126,7 +137,8 @@ var incidentData = [
 		'lat': 33.687355,
 		'lng': -95.547678,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'unarmed', 
 					'age': '21'}],
 		'date': '2015,9,21',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/TexasDepartmentofPublicSafety-2015-0000036.pdf'
@@ -137,7 +149,8 @@ var incidentData = [
 		'lat': 33.177661,
 		'lng': -96.637181,
 		'information': [{'race_ethnicity': 'other/unknown',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'armed', 
 					'age': '35'}],
 		'date': '2015,9,23',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/McKinneyPoliceDepartment-2015-0000038.pdf'
@@ -148,7 +161,8 @@ var incidentData = [
 		'lat': 29.869673,
 		'lng': -93.955587,
 		'information': [{'race_ethnicity': 'black',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '52'}],
 		'date': '2015,9,24',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PortArthurPoliceDepartment-2015-0000018.pdf'
@@ -159,7 +173,8 @@ var incidentData = [
 		'lat': 32.741067,
 		'lng': -97.114715,
 		'information': [{'race_ethnicity': 'black',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '38'}],
 		'date': '2015,9,25',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/ArlingtonPoliceDepartment-2015-0000015.pdf'
@@ -170,7 +185,8 @@ var incidentData = [
 		'lat': 33.16663,
 		'lng': -97.277833,
 		'information': [{'race_ethnicity': 'hispanic',
-					'status': 'death', 
+					'status': 'death',
+					'carried_weapon': 'armed', 
 					'age': '41'}],
 		'date': '2015,9,27',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/PonderPoliceDepartment-2015-0000066.pdf'
@@ -181,7 +197,8 @@ var incidentData = [
 		'lat': 32.920682,
 		'lng': -96.453196,
 		'information': [{'race_ethnicity': 'white',
-					'status': 'injury', 
+					'status': 'injury',
+					'carried_weapon': 'armed', 
 					'age': '49'}],
 		'date': '2015,9,30',
 		'file_location': 'https://www.texasattorneygeneral.gov/files/cj/peace_officer/RockwallCountySheriffsOffice-2015-0000026.pdf'
