@@ -48,9 +48,13 @@ $(function(){
 	    	icon: this.icon() 
 	    }));
 
-	    this.searchTerms = ko.computed(function(){
-	    	var searchterms = this.street + " " + this.information()[0].race_ethnicity() + " " + this.information()[0].status();
-	    	return searchterms; 
+	    this.searchString = ko.computed(function(){
+	    	var stringStreet = this.street().toString();
+	    	var searchString = stringStreet;
+	    	for (var i = 0; i < this.information().length; i++) {
+        		searchString += " " + this.information()[i].status() + " " + this.information()[i].race_ethnicity() + " " + this.information()[i].carried_weapon();
+      		}
+	    	return searchString.toUpperCase(); 
 	    }, this);
 
 	    this.isIncident = ko.computed(function() {
@@ -205,18 +209,7 @@ $(function(){
 
 		})
 */
-	    incidentDataMain = incidentData.sort(function(a, b) {
-	      var aup = a.street.toUpperCase();
-	      var bup = b.street.toUpperCase();
-	      if (aup < bup) {
-	        return -1;
-	      }
-	      if (aup > bup) {
-	        return 1;
-	      }
-
-	      return 0;
-	    });
+	    incidentDataMain = incidentData;
 
 		for (var incident in incidentDataMain) {
 		  self.incidents.push(new Incident(incidentData[incident]));
@@ -304,7 +297,7 @@ $(function(){
 	var visible = false;
 	if (isIncidentDisplayed(incident, visibleEvents)) {
 	  for (var j = 0; j < searchterms.length; j++) {
-	    if (incident.searchTerms().indexOf(searchterms[j]) >= 0) {
+	    if (incident.searchString().indexOf(searchterms[j]) >= 0) {
 	      visible = true;
 	      break;
 	    }
@@ -353,10 +346,17 @@ $(function(){
 
 		  google.maps.event.addListenerOnce(ctx.map, 'tilesloaded', function(e) {
 		    console.log("adding event listener");
+		    
+		    var panel = document.createElement('div');
+		    panel.id = 'panel-list-control';
+		    var panelist = $('#panel-list').detach();
+		    ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(panel);
+			panelist.appendTo('#panel-list-control');
+
 		    var control = document.createElement('div');
 		    control.id = 'incident-list-control';
 		    var list = $('#incident-list').detach();
-		    ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(control);
+		    ctx.map.controls[google.maps.ControlPosition.TOP_LEFT].push(control);
 		    list.appendTo('#incident-list-control');
 		    $('#event-list-menu-toggle').click(function() {
 		      ctx.toggleMenu();

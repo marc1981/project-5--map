@@ -9,12 +9,12 @@
   <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September 2015">
   <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.scss">
-    <link rel="stylesheet" href="css/lib/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+
     <title>One September In Texas: Peace Officer Involved Shootings</title>
     <style>
       html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
+      body { height: 100%; margin: 0; padding: 0; font-family:sans-serif; }
       .map-canvas { height: 100%; }
       #controls {
           display: none;
@@ -23,17 +23,39 @@
       .descriptions{
         text-transform: uppercase;
       }
+      .test-list-control{
+        background: red;
+        max-width: 240px;
+        margin: 30px;
+        border-radius: 10px;
+      }
+      .icons{
+        text-transform: uppercase;
+        text-align: center;
+        color: white;
+        font-size: 1.2em;
+        text-shadow: 0 0 10px red;
+      }
+      .icon-titles{
+        text-align: center;
+        font-size: 1.5em;
+        color: white;
+        text-shadow: 0 0 10px black;
+        padding-top:20px;
+      }
       #title-bar{
         min-height: 60px;
         text-align: center;
-        font-size: 2em;
+        font-size: 2.2em;
         font-weight: bolder;
+        border-bottom: 5px groove red;
         color: white;
         background: black;
         padding: 25px 0 10px 0;
-
+        text-shadow: 0 0 5px red;
       }
-      h1{color:#232323;margin:8px 0}p,li,input,button{font:normal 14px Helvetica,Arial,sans-serif;color:#333}input{padding:6px;font-size:16px}button,input[type="submit"]{padding:6px;min-width:48px;min-height:48px}#info-window{width:325px;height:275px;overflow-y:scroll}@media screen and (max-width: 749px){#info-window{width:250px;}}@media screen and (max-width: 320px){#info-window{width:210px;}}@media screen and (min-width: 550px){#event-list-menu{display:none;}}.event-list-control{margin:16px;padding:0px;width:246px}.event-list-menu{width:100%;margin-bottom:4px}.event-list{margin:4px 0 0 0;padding:4px 8px;background-color:rgba(255,255,255,0.7);border:1px solid #cecece}.event-list-ul{margin:0;padding:0;overflow-y:scroll}.event-list-ul p{font-size:14px;line-height:14px;margin:4px 0px}.event-list-ul li{padding:2px;list-style:none;border-bottom:1px dotted #cecece;-webkit-transition:background-color 0.5s ease;-moz-transition:background-color 0.5s ease;-o-transition:background-color 0.5s ease;transition:background-color 0.5s ease}.event-list-ul li:hover{cursor:pointer;background-color:rgba(11,104,254,0.2)}.event-list-ul li:last-child,.event-list-ul .event-list-last{border-bottom:none}@media screen and (max-height: 399px){.event-list-ul{max-height:150px;}}@media screen and (min-height: 401px){.event-list-ul{max-height:300px;}}@media screen and (min-height: 550px){.event-list-ul{max-height:380px;}}@media screen and (min-height: 675px){.event-list-ul{max-height:500px;}}.event-list-name{font-weight:bold}.event-list-data{color:#8e8e8e}.search-box{margin:0;padding:0;height:36px;background:white;border:2px solid #cecece}.search-box input{display:inline-block;margin:0;outline:0;width:190px;line-height:20px;border:none}.search-box-clear{display:inline-block;margin:0;outline:0;width:40px;padding:6px;font-size:18px;line-height:20px;min-width:40px;min-height:34px;background-color:white;border:none}.event-list-filters{margin:4px 0 0 0;padding:0}.event-list-filters li{padding:2px;margin:0 20px 0 20px;display:inline-block;list-style:none;max-width:75px;max-height:75px;border:1px dotted #cecece;background-color:rgba(255,255,255,0.7)}.event-list-filters li:hover{cursor:pointer}.event-list-filters li:last-child{margin-right:0px}.event-list-filters img{max-width:100%}.info-teams{color:#8e8e8e;margin:4px 0}.info-address{margin:8px 0}.info-address p{margin:4px 0}.info-photos img{max-width:100%}.info-censusData ul{padding:0}.info-censusData ul li{margin:4px 0px;list-style:none}.info-messages{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;border:1px solid #8e8e8e;background-color:#eaeaea;padding:4px 8px}.info-messages p{color:#8e8e8e;margin:4px 0;padding:0}.info-errors{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;border:1px solid #c32e2e;background-color:#ffacac;padding:4px 8px}.info-errors ul{padding:0;margin:0}.info-errors ul li{color:#c32e2e;list-style:none;margin:4px 0}.error-dialog{margin:100px auto;padding:24px;border:1px solid #c32e2e;background-color:#ffacac;width:400px;max-width:80%;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}.error-message{margin:0;padding:0;font-size:16px;color:#c32e2e}@media screen and (max-width: 549px){.event-menu-offsmall{display:none;}}
+
+      h1{color:#232323;margin:8px 0}p,li,input,button{font:normal 14px Helvetica,Arial,sans-serif;color:#333}input{padding:6px;font-size:16px}button,input[type="submit"]{padding:6px;min-width:48px;min-height:48px}#info-window{width:325px;height:275px;overflow-y:scroll}@media screen and (max-width: 749px){#info-window{width:250px;}}@media screen and (max-width: 320px){#info-window{width:210px;}}@media screen and (min-width: 550px){#event-list-menu{display:none;}}.event-list-control{margin:16px;padding:0px;width:246px}.event-list-menu{width:100%;margin-bottom:4px}.event-list{margin:4px 0 0 0;padding:4px 8px;background-color:rgba(255,255,255,0.7);border:1px solid #cecece}.event-list-ul{margin:0;padding:0;overflow-y:scroll}.event-list-ul p{font-size:14px;line-height:14px;margin:4px 0px}.event-list-ul li{padding:2px;list-style:none;border-bottom:1px dotted #cecece;-webkit-transition:background-color 0.5s ease;-moz-transition:background-color 0.5s ease;-o-transition:background-color 0.5s ease;transition:background-color 0.5s ease}.event-list-ul li:hover{cursor:pointer;background-color:rgba(11,104,254,0.2)}.event-list-ul li:last-child,.event-list-ul .event-list-last{border-bottom:none}@media screen and (max-height: 399px){.event-list-ul{max-height:150px;}}@media screen and (min-height: 401px){.event-list-ul{max-height:300px;}}@media screen and (min-height: 550px){.event-list-ul{max-height:380px;}}@media screen and (min-height: 675px){.event-list-ul{max-height:500px;}}.event-list-name{font-weight:bold}.event-list-data{color:#8e8e8e}.search-box{margin:0;padding:0;height:36px;background:white;border:2px solid #cecece}.search-box input{display:inline-block;margin:0;outline:0;width:190px;line-height:20px;border:none}.search-box-clear{display:inline-block;margin:0;outline:0;width:40px;padding:6px;font-size:18px;line-height:20px;min-width:40px;min-height:34px;background-color:white;border:none}.event-list-filters{margin:4px 0 0 0;padding:0}.event-list-filters li{padding:10px;margin:11px;display:inline-block;list-style:none;max-width:75px;;border:1px dotted #cecece;background-color:black;border-radius:10px}.event-list-filters li:hover{cursor:pointer}.event-list-filters li:last-child{margin-right:10px}.event-list-filters img{max-width:100%}.info-teams{color:#8e8e8e;margin:4px 0}.info-address{margin:8px 0}.info-address p{margin:4px 0}.info-photos img{max-width:100%}.info-censusData ul{padding:0}.info-censusData ul li{margin:4px 0px;list-style:none}.info-messages{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;border:1px solid #8e8e8e;background-color:#eaeaea;padding:4px 8px}.info-messages p{color:#8e8e8e;margin:4px 0;padding:0}.info-errors{-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;border:1px solid #c32e2e;background-color:#ffacac;padding:4px 8px}.info-errors ul{padding:0;margin:0}.info-errors ul li{color:#c32e2e;list-style:none;margin:4px 0}.error-dialog{margin:100px auto;padding:24px;border:1px solid #c32e2e;background-color:#ffacac;width:400px;max-width:80%;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px}.error-message{margin:0;padding:0;font-size:16px;color:#c32e2e}@media screen and (max-width: 549px){.event-menu-offsmall{display:none;}}
     </style>
   </head>
   <body>
@@ -41,6 +63,14 @@
     <div class="map-canvas" data-bind="googlemap: { incidents: incidents },
           infowindow: { incident: selectedLocation, messages: datastatus }"></div>
     <div id ="controls">
+    <div id="panel-list" class="test-list-control">
+      <div class="icon-titles">Display locations based on incident result</div>
+      <ul class="event-list-filters" data-bind="foreach: filters">
+        <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
+          <p class="icons" data-bind="text: status"></p><img data-bind="attr: {src: imgSrc, alt: status}" />
+        </li>
+      </ul>
+    </div>
       <div id="incident-list" class="event-list-control">
         <div id="event-list-menu">
           <button id="event-list-menu-toggle" class="event-list-menu">Search/Filters
@@ -50,18 +80,15 @@
             <div class="search-box">
             <input type="search" placeholder="Search incident locations..." id="incident-search" data-bind="textInput: searchtext"/><button class="search-box-clear" data-bind="click: clearSearchText"><span class="fa fa-times-circle"></span></button>
           </div>
-          <ul class="event-list-filters" data-bind="foreach: filters">
-            <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
-              <img data-bind="attr: {src: imgSrc, alt: status}" />
-            </li>
-          </ul>
+
           <div class="event-list">
             <p class="event-list-empty" data-bind="visible: emptysearch">No matching locations found.</p>
             <ul data-bind="foreach: incidents" class="event-list-ul">
               <li data-bind="visible: visible, click: $parent.showMarker">
                 <p data-bind="text: status" class="event-list-name"></p>
+                <p data-bind="text: street" class="event-list-name"></p>
                 <div data-bind="foreach: information">
-                  <p class="incident-list-data">Shooting resulted in: <span data-bind="text: status"></span>. Race of suspect: <span data-bind="text: race_ethnicity"></span></p>
+                  <p class="incident-list-data">Shooting resulted in: <span data-bind="text: status"></span> <br>Race of suspect: <span data-bind="text: race_ethnicity"></span></p>
                 </div>
               </li>
             </ul>
@@ -72,8 +99,15 @@
         <h3 data-bind="text: street"></h3>
         <h4 data-bind="text: eventDate"></h4>
         <div data-bind="foreach: information">
-          <p class="info-information">Shooting resulted in: <span class="descriptions" data-bind="text: status"></span></p>
-          <p class="info-information">Race/Ethnicity of Injuried or Dead: <span class="descriptions" data-bind="text: race_ethnicity"></span></p>
+          <p class="info-information">
+            Shooting resulted in: <span class="descriptions" data-bind="text: status"></span>
+          </p>
+          <p class="info-information">
+            Race/Ethnicity of Injuried or Dead: <span class="descriptions" data-bind="text: race_ethnicity"></span>
+          </p>
+          <p class="info-information">
+            Injured or Dead Was: <span class="descriptions" data-bind="text: carried_weapon"></span>
+          </p>
         </div>
         <p class="info-information"><a data-bind='attr: {href:file_location}' target="_blank">Click to View Official Incident Report</a></p>
         <div data-bind="with: $parent.datastatus()">
