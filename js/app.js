@@ -307,7 +307,7 @@ $(function(){
 		init: function(element, valueAccessor, allBindings,
 		                viewModel, bindingContext) {
 		  var mapOptions = {
-		    zoom: 7,
+		    zoom: 6,
 		    center: { lat: 31.00746, lng: -99.086765 },
 		    disableDefaultUI: true,
 		    cursor: 'url(img/t2.png)',
