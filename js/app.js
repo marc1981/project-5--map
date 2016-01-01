@@ -90,29 +90,7 @@ $(function(){
 			return hoverstring;
 		}, this);
 	};
-/*  var SortbyArmed = function(data) {
-    this.carried_weapon = ko.observable(data.carried_weapon);
-    this.display = ko.observable(data.display);
-    this.imgSrcArmed = ko.computed(function(){
-      var filename;
-      if (this.display()) {
-        filename = "img/" + this.carried_weapon() + ".png"
-      } else {
-        filename = "img/" + this.carried_weapon() + "-deselect.png"
-      }
-      return filename;
-    }, this);
-    this.hover = ko.computed(function(){
-      var hoverstring = this.display() ? 'Click to hide all ' : 'Click to display all ';
-      if(this.carried_weapon() == 'armed'){
-        hoverstring += 'injuried/dead who were carrying a weapon.';
-      }else{
-        hoverstring += 'injuried/dead who were unarmed.';
-      }
-      return hoverstring;
-    }, this);
-  };
-*/
+
 	var remoteDataHelper = {
 		gettingCensusData: false,
 
@@ -131,18 +109,19 @@ $(function(){
 
 		getCensusData: function(event, datastatus){
 			var self = this;
+			self.census_code = ko.observable(event.census_code);
 			if(!self.gettingCensusData){
 				self.gettingCensusData = true;
 				datastatus.gettingdata(self.isGettingData());
 				$.ajax({
 					dataType: 'json',
-					url: buildCensusURL(event.census_code()),
+					url: buildCensusURL(self.census_code()),
 					success: function(data){
 						var demos;
 						if (data.getstatus === 'OK' && event.censusData.length === 0){
 							demos = data.response.demos;
 							for (var demo in demos){
-								event.censusData.push({
+								self.censusData.push({
 									'url': 'http://www.google.com',
 									'headline': 'GOOGLE!'
 								});
@@ -428,10 +407,9 @@ $(function(){
 		}
 	};
 
-	function buildCensusURL(name) {
+	function buildCensusURL(census_code) {
 		var census_code = this.census_code;
-		var urlCensus = 'http://api.census.gov/data/2012/acs5?get=B06012_002E,NAME&for=county:439&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
-		var formattedCensusURL = urlCensus.replace('{county_code}', census_code);
+		var urlCensus = 'http://api.census.gov/data/2012/acs5?get=B06012_002E,NAME&for=county:' + census_code + '&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
 		return urlCensus;
 	}
 	
