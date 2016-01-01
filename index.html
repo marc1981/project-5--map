@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="keywords" content="police shootings, Texas police, crime statistics, police use of force">
   <meta name="author" content="Marc Anderson">
-  <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September 2015">
+  <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September and October 2015">
   <link rel="shortcut icon" href="img/favicon.ico">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 
-    <title>One September In Texas: Peace Officer Involved Shootings</title>
+    <title>Two Months In Texas: Peace Officer Involved Shootings</title>
     <style>
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0; font-family:sans-serif; }
-      .map-canvas { height: 100%; }
+      .map-canvas { height: 90%; }
     </style>
   </head>
   <body>
-  <div id="title-bar">Two Months In Texas<br> All Reported Peace Officer Involved Shootings: September - October 2015</div>
+  <div id="title-bar"><span id="mainTitle">Two Months In Texas</span><br><span id="subtitle">All Reported Peace Officer Involved Shootings: September - October 2015</span></div>
     <div class="map-canvas" data-bind="googlemap: { incidents: incidents },
           infowindow: { incident: selectedLocation, messages: datastatus }"></div>
     <div id ="controls">
