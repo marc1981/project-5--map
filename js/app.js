@@ -7,7 +7,7 @@ $(function(){
 		this.eventDate = ko.observable(new Date(data.date).toDateString());
 		this.census_code = ko.observable(data.census_code);
 		this.file_location = ko.observable(data.file_location);
-
+		
 	    //space for visible
         this.visible = typeof data.visible === 'boolean' ?
                 ko.observable(data.visible) : ko.observable(true);
@@ -90,6 +90,63 @@ $(function(){
 			return hoverstring;
 		}, this);
 	};
+
+//*****************************************************
+		function onDataReceived(data, status, xhr){
+            console.log(data);
+            console.log(status);
+            console.log(xhr);
+            $('#census-info').text(data[1][0]);
+
+        }
+
+        function onError(xhr, status, error){
+
+            console.log(xhr);
+            console.log(status);
+            console.log(error);
+            var msg;
+            if (xhr.statusText == "error"){
+               msg = "ERROR!";
+            } else if (!xhr.responseJSON ) {
+                msg = "TIMEOUT!";
+            }
+
+            else{
+                msg= "Unable to communicate.";
+            }
+
+            alert(msg);
+        }
+
+		this.locationURL = ko.computed(function(){    
+                var request = 
+                {
+                	url: buildLocationURL(this.census_code),
+                    type: 'GET',
+                    success: onDataReceived,
+                   // headers:{ Accept: 'application/json'},
+                    error: onError,
+                    timeout: 5000
+                }
+
+                $.ajax(request);
+            })
+
+		function buildLocationURL(census_code){
+		    var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
+		    var updateTemplate = templateURL.replace('{CODE}', this.census_code);
+		    return updateTemplate;
+		}
+
+
+
+
+
+
+
+
+//****************************************************
 
 	var remoteDataHelper = {
 		gettingCensusData: false,
