@@ -91,7 +91,7 @@ $(function(){
 		}, this);
 	};
 
-//*****************************************************
+/***************************************************
 		function onDataReceived(data, status, xhr){
             console.log(data);
             console.log(status);
@@ -107,7 +107,7 @@ $(function(){
             console.log(error);
             var msg;
             if (xhr.statusText == "error"){
-               msg = "ERROR!";
+               msg = "No!";
             } else if (!xhr.responseJSON ) {
                 msg = "TIMEOUT!";
             }
@@ -146,7 +146,7 @@ $(function(){
 
 
 
-//****************************************************
+*/
 
 	var remoteDataHelper = {
 		gettingCensusData: false,
@@ -166,40 +166,30 @@ $(function(){
 
 		getCensusData: function(event, datastatus){
 			var self = this;
-			self.census_code = ko.observable(event.census_code);
 			if(!self.gettingCensusData){
 				self.gettingCensusData = true;
 				datastatus.gettingdata(self.isGettingData());
 				$.ajax({
 					dataType: 'json',
-					url: buildCensusURL(self.census_code()),
+					url: buildCensusURL(event.census_code()),
 					success: function(data){
-						var demos;
-						if (data.getstatus === 'OK' && event.censusData.length === 0){
-							demos = data.response.demos;
-							for (var demo in demos){
-								self.censusData.push({
-									'url': 'http://www.google.com',
-									'headline': 'GOOGLE!'
-								});
-							}
-							console.log("GOT SOME STUFF!");
-						} else {
-							console.log("BUMMER!");
-							datastatus.errors.push("ERROR!!! Oh no.");
-						}
-						self.gettingCensusData = false;
-						datastatus.gettingdata(self.isGettingData());
-					},
-					error: function(jqhxr, getstatus, error){
-						console.log("Bummer!!!");
-						self.gettingCensusData = false;
-						datastatus.errors.push("Bummer!!!");
-						datastatus.gettingdata(self.isGettingData());
-					}
-				});
-			}
-		},
+						console.log("Retrieved Census Data.");
+						console.log(data[0][1]);
+						var census_num, totalPop;
+						totalPop = data[0][1];
+			            self.gettingCensusData = false;
+			            datastatus.gettingdata(self.isGettingData());
+			          },
+			          error: function(jqhxr, status, error) {
+			            console.log("Error getting census data.");
+			            self.gettingCensusData = false;
+			            datastatus.errors.push("Error getting census data.");
+			            datastatus.gettingdata(self.isGettingData());
+			          }
+			        });
+			      }
+			    },
+
 		reset: function(){
 			this.gettingCensusData = false;
 		}
@@ -464,12 +454,13 @@ $(function(){
 		}
 	};
 
-	function buildCensusURL(census_code) {
-		var census_code = this.census_code;
-		var urlCensus = 'http://api.census.gov/data/2012/acs5?get=B06012_002E,NAME&for=county:' + census_code + '&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
-		return urlCensus;
+
+	function buildCensusURL(census_code){
+    	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
+    	var updateTemplate = templateURL.replace('{CODE}', census_code);
+    	return updateTemplate;
 	}
-	
+
 	if (typeof google !== 'undefined') {
 		ko.applyBindings(new viewModel());
 	} else {

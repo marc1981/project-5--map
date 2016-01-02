@@ -70,7 +70,7 @@
           </p>
         </div>
         <p class="info-information"><a data-bind='attr: {href:file_location}' target="_blank">Click to View Official Incident Report</a></p>
-        <div class="info-information">County Population: <p id="census-info"></p></div>
+        <div class="info-information">County Population: <p id="census-info"data-bind="text: totalPop"></p></div>
         <div data-bind="with: $parent.datastatus()">
           <div class="info-messages" data-bind="visible: gettingdata">
             <p><span class="fa fa-spinner fa-pulse"></span> Getting data.</p>
@@ -85,7 +85,7 @@
         <div class="info-censusData" data-bind="visible: censusData().length > 0">
           <h2>Recent Census Data</h2>
           <ul data-bind="foreach: censusData">
-            <li><a data-bind="text: headline, attr: {href: url}"></a></li>
+            <li><a data-bind="text: totalPop"></a></li>
           </ul>
         </div>
       </div>
