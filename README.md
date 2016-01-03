@@ -1,6 +1,6 @@
 This Map Displays all of the reported Officer-Involved Shootings in the State of Texas for the months of September and October of 2015. The data was pulled from the individual incident reports found on the State Attorney General's website: https://www.texasattorneygeneral.gov/cj/peace-officer-involved-shooting-report
 
-To view the map go to: marc1981.github.io/project-5--map
+To view the map go to: http://marc1981.github.io/project-5--map
 
 Listed for each incident is:
 1.) the incident's location
