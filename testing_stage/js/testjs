@@ -1,0 +1,3 @@
+var Incident = function(data){
+	
+}
