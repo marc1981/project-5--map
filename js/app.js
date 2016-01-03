@@ -159,9 +159,9 @@ $(function(){
 			console.log("Getting census data.");
 			datastatus.gettingdata(this.isGettingData());
 			datastatus.errors([]);
-			if(event.censusData().length === 0){
+			
 				this.getCensusData(event, datastatus);
-			}
+			
 		},
 
 		getCensusData: function(event, datastatus){
@@ -172,12 +172,16 @@ $(function(){
 				$.ajax({
 					dataType: 'json',
 					url: buildCensusURL(event.census_code()),
-					success: function(data){
+					success: function(data, status, xhr){
 						console.log("Retrieved Census Data.");
-						console.log(data[0][1]);
-						var census_num, totalPop;
-						totalPop = data[0][1];
-			            self.gettingCensusData = false;
+						console.log(data);
+            			console.log(status);
+            			console.log(xhr);
+
+                			event.censusData.push({
+                  				'text': data[1][0]
+                				});
+						self.gettingCensusData = false;
 			            datastatus.gettingdata(self.isGettingData());
 			          },
 			          error: function(jqhxr, status, error) {
