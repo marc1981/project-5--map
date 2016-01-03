@@ -20,6 +20,13 @@ Users can search for locations based on address (partial or full), the race/ethn
 Included in the document's folder are all of the police reports in PDF format.
 
 Additional notes:
+
 CSS was minified using https://cssminifier.com/
+
 Census codes were found using https://www.zipinfo.com/search/zipcode.htm
+
 Lat and long coordinates were found using: http://www.latlong.net/
+
+Help with number formatting came from http://blog.tompawlak.org/number-currency-formatting-javascript
+
+Help with GET requests came from https://www.udemy.com/javascript-and-jquery-basics-for-beginners
