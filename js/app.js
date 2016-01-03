@@ -423,7 +423,7 @@ $(function(){
 
 
 	function buildCensusURL(census_code){
-    	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,B03001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
+    	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B03002_003E,B03002_004E,B03002_012E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
     	var updateTemplate = templateURL.replace('{CODE}', census_code);
     	return updateTemplate;
 	}
