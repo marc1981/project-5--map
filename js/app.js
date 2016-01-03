@@ -1,5 +1,5 @@
 $(function(){
-
+	//Creates an object that holds all the information for each officer-involved shooting event.
 	var Incident = function(data){
 		this.street = ko.observable(data.street);
 		this.lat = ko.observable(data.lat);
@@ -8,7 +8,6 @@ $(function(){
 		this.census_code = ko.observable(data.census_code);
 		this.file_location = ko.observable(data.file_location);
 		
-	    //space for visible
         this.visible = typeof data.visible === 'boolean' ?
                 ko.observable(data.visible) : ko.observable(true);
 	    this.information = ko.observableArray([]);
@@ -22,9 +21,8 @@ $(function(){
 	    		'armedIcon': ko.observable('img/' + data.information[i].carried_weapon + '.png')
 	    	});
 	    }
-	
+		//Array for storing data retrieved from Census API
 	    this.censusData = ko.observableArray([]);
-	    this.censusData.extend({rateLimit: 50});
 
 	    this.mapPoint = ko.computed(function(){
 	    	return{
@@ -33,7 +31,7 @@ $(function(){
 	    	};
 	    }, this);
 
-
+	    //Assigns each location a location icon based on the result of the shooting (injury or death).
 	    this.icon = ko.computed(function(){
 	    	var icon;
 	    	var iconName = this.information()[0].status();
@@ -44,12 +42,14 @@ $(function(){
 	    	};
 	    }, this);
 
+	    //Text shown when hovering over a location's marker.
 	    this.marker = ko.observable(new google.maps.Marker({
 	    	position: this.mapPoint(),
 	    	title: "Location: " + this.street() + " --- Date: " + this.eventDate(),
 	    	icon: this.icon() 
 	    }));
 
+	    //Provides the capitalized string that is used when conducting a search.
 	    this.searchString = ko.computed(function(){
 	    	var stringStreet = this.street().toString();
 	    	var searchString = stringStreet;
@@ -58,6 +58,7 @@ $(function(){
       		}
 	    	return searchString.toUpperCase(); 
 	    }, this);
+
 
 	    this.isIncident = ko.computed(function() {
       		var statuses = [];
@@ -70,6 +71,8 @@ $(function(){
 	};
 	//End of Incident
 
+	//Function used to filter locations based on status (injury or death)
+	//Creates file path for images used for the selector icons
 	var Sort = function(data) {
 		this.status = ko.observable(data.status);
 		this.display = ko.observable(data.display);
@@ -93,6 +96,11 @@ $(function(){
 		}, this);
 	};
 
+	/*
+		Manages asynchronous calls by keeping track of error messages and alerts.
+		Invokes buildCensusURL function to retrieve data from Census API.
+		Console-logs the returned data and status for verification purposes.
+	*/
 	var remoteDataHelper = {
 		gettingCensusData: false,
 
@@ -104,9 +112,7 @@ $(function(){
 			console.log("Getting census data.");
 			datastatus.gettingdata(this.isGettingData());
 			datastatus.errors([]);
-			
-				this.getCensusData(event, datastatus);
-			
+			this.getCensusData(event, datastatus);	
 		},
 
 		getCensusData: function(event, datastatus){
@@ -122,15 +128,17 @@ $(function(){
 						console.log(data);
             			console.log(status);
             			console.log(xhr);
-            			
+            			//Variables to hold specific data points.
             			var totalPop = data[1][0];
             			var whitePop = data[1][1];
             			var blackPop = data[1][2];
             			var latinoPop = data[1][3];
 
+            			//Subtracts White Population from Total Population and Divides by Total
             			var minPercent = ((totalPop - whitePop)/totalPop) * 100;
             			var minPerFormat = minPercent.toFixed(2) + '%';
             			
+            			//Adds commas to numbers > 3 digits in length.
             			function formatNumber (num) {
     						return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 						}
@@ -233,12 +241,14 @@ $(function(){
 			remoteDataHelper.getRemoteData(incident, self.datastatus());
 		};
 
+		//Structures list of locations on screen
 	    self.toggleMenu = function(open) {
 	      $('#event-list-hideable').toggleClass('event-menu-offsmall', typeof open ==='undefined' ? open : !open);
 	      $('#event-list-menu-toggle .fa').toggleClass('fa-caret-down', typeof open ==='undefined' ? open : !open);
 	      $('#event-list-menu-toggle .fa').toggleClass('fa-caret-up', open);
 	    };
-	
+		
+		//Used to toggle between locations based on status when appropriate icon is clicked.
 	    self.toggleFilter = function(filter) {
 	      filter.display(!filter.display());
 	    };
@@ -246,8 +256,7 @@ $(function(){
 	    self.filterList = function() {
 	      var event;
 	      var visible;
-	      /* Convert the value in the search box to all upper case, trim white
-	         space and split into an array of terms. */
+	      /* Capitalizes string, splits at white space, places into an array for searching */
 	      var searchstring = self.searchtext().toUpperCase().trim();
 	      var searchterms = searchstring.split(/\s+/);
 	      var visibleEvents = [];
@@ -258,12 +267,14 @@ $(function(){
 	        }
 	      }
 
+	      //Closes any open window that doesn't meet fitler requirements (search or icon-selected)
 	      if (self.selectedLocation() !== null &&
 	          !incidentClearsFilters(self.selectedLocation(), searchterms, visibleEvents)) {
 	        self.selectedLocation(null);
-	        console.log("Setting location to null");
+	        console.log("Closed Window.");
 	      }
 
+	      //Hides locations that don't match filter requirements.
 	      for (var i = 0; i < self.incidents().length; i++) {
 	        event = self.incidents()[i];
 	        visible = incidentClearsFilters(event, searchterms, visibleEvents);
@@ -286,6 +297,8 @@ $(function(){
 	    }
 	};
 
+
+	//Allows locations that match filter to be displayed by returning true.
 	var incidentClearsFilters = function(incident, searchterms, visibleEvents) {
 	var visible = false;
 	if (isIncidentDisplayed(incident, visibleEvents)) {
@@ -299,6 +312,7 @@ $(function(){
 	return visible;
 	};
 
+	//Ensures that any location displayed on map also shows up in list menu.
 	var isIncidentDisplayed = function(incident, filterincidents) {
 	    var displayed = false;
 	    var isincident = incident.isIncident();
@@ -317,7 +331,7 @@ $(function(){
 	};
 
 	ko.bindingHandlers.googlemap = {
-
+		//Map and map controls
 		init: function(element, valueAccessor, allBindings,
 		                viewModel, bindingContext) {
 		  var mapOptions = {
@@ -340,12 +354,14 @@ $(function(){
 		  google.maps.event.addListenerOnce(ctx.map, 'tilesloaded', function(e) {
 		    console.log("adding event listener");
 		    
+		    //Creates list panel on left
 		    var panel = document.createElement('div');
 		    panel.id = 'panel-list-control';
 		    var panelist = $('#panel-list').detach();
 		    ctx.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(panel);
 			panelist.appendTo('#panel-list-control');
 
+			//Creates icon-selector on right
 		    var control = document.createElement('div');
 		    control.id = 'incident-list-control';
 		    var list = $('#incident-list').detach();
@@ -421,7 +437,7 @@ $(function(){
 		}
 	};
 
-
+	//Builds URL for each location by inserting the location's census-code.
 	function buildCensusURL(census_code){
     	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B03002_003E,B03002_004E,B03002_012E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
     	var updateTemplate = templateURL.replace('{CODE}', census_code);
