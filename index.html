@@ -6,17 +6,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="keywords" content="police shootings, Texas police, crime statistics, police use of force">
   <meta name="author" content="Marc Anderson">
-  <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September and October 2015">
+  <meta name="description" content="Number and Location of All Reported Police Officer Involved Shootings in the State of Texas During September and October of 2015">
   <link rel="shortcut icon" href="img/favicon.ico">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/style.css">
-
-    <title>Two Months In Texas: Peace Officer Involved Shootings</title>
-    <style>
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0; font-family:sans-serif; }
-      .map-canvas { height: 90%; }
-    </style>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Two Months In Texas: Peace Officer Involved Shootings</title>
+  <style>
+    html { height: 100% }
+    body { height: 100%; margin: 0; padding: 0; font-family:sans-serif; }
+    .map-canvas { height: 90%; }
+  </style>
   </head>
   <body>
   <div id="title-bar"><span id="mainTitle">Two Months In Texas</span><br><span id="subtitle">All Reported Peace Officer Involved Shootings: September - October 2015</span></div>
@@ -33,11 +32,11 @@
     </div>
       <div id="incident-list" class="event-list-control">
         <div id="event-list-menu">
-          <button id="event-list-menu-toggle" class="event-list-menu">Search/Filters
+          <button id="event-list-menu-toggle" class="event-list-menu">Search
             <span class="fa fa-caret-down"></span></button>
         </div>
-          <div id="event-list-hideable" class="event-menu-offsmall">
-            <div class="search-box">
+        <div id="event-list-hideable" class="event-menu-offsmall">
+          <div class="search-box">
             <input type="search" placeholder="Search incidents..." id="incident-search" data-bind="textInput: searchtext"/><button class="search-box-clear" data-bind="click: clearSearchText"><span class="fa fa-times-circle"></span></button>
           </div>
 
@@ -48,7 +47,8 @@
                 <p data-bind="text: status" class="event-list-name"></p>
                 <p data-bind="text: street" class="event-list-name"></p>
                 <div data-bind="foreach: information">
-                  <p class="incident-list-data">Shooting resulted in: <span data-bind="text: status"></span> <br>Race of suspect: <span data-bind="text: race_ethnicity"></span></p>
+                  <p class="incident-list-data">Shooting resulted in: <span data-bind="text: status"></span></p>
+                  <p>Race of suspect: <span data-bind="text: race_ethnicity"></span></p>
                 </div>
               </li>
             </ul>
@@ -56,17 +56,19 @@
         </div>
       </div>
       <div id="selected-incident-info" data-bind="with: selectedLocation">
-        <h3 data-bind="text: street"></h3>
-        <h4 data-bind="text: eventDate"></h4>
+        <div class="main-info">
+          <h3 data-bind="text: street"></h3>
+          <h4 data-bind="text: eventDate"></h4>
+        </div>
         <div data-bind="foreach: information">
           <p class="info-information">
             Shooting resulted in: <span class="descriptions" data-bind="text: status"></span>
           </p>
           <p class="info-information">
-            Race/Ethnicity of Injuried or Dead: <span class="descriptions" data-bind="text: race_ethnicity"></span>
+            Race/Ethnicity of Injuried/Dead: <span class="descriptions" data-bind="text: race_ethnicity"></span>
           </p>
           <p class="info-information">
-            Injured or Dead Was: <span class="descriptions" data-bind="text: carried_weapon"></span>
+            Injured or Dead Was: <span class="descriptions" data-bind="text: carried_weapon"></span><img id="armed-icon" data-bind="attr: {src: armedIcon, alt: carried_weapon}" />
           </p>
         </div>
         <p class="info-information"><a data-bind='attr: {href:file_location}' target="_blank">Click to View Official Incident Report</a></p>
@@ -81,10 +83,17 @@
             </ul>
           </div>
         </div>
+        <br>
+        <hr class="infoWindowBar">
         <div class="info-censusData" data-bind="visible: censusData().length > 0">
-        <p>Total Population of County:</p>
           <div data-bind="foreach: censusData">
-            <p data-bind="text: text"></p>
+            <h3 class="census-title">County Demographics</h3>      
+            <p>Total Population of County: <span data-bind="text: totalPop"></span></p>
+            <p>Total White Population: <span data-bind="text: whitePop"></span></p>
+            <p>Total Black Population: <span data-bind="text: blackPop"></span></p>
+            <p>Total Hispanic/Latino Population: <span data-bind="text: latinoPop"></span></p>
+            <p>Percentage of Population Comprised of <br>Racial or Ethnic Minorities : <span data-bind="text: minPercent"></span></p>
+            <h5 class="census-title">Information Provided by <a href="http://www.census.gov/en.html" target="_blank">U.S. Census Bureau</a></h5>
           </div>
         </div>
       </div>

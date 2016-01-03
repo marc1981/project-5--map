@@ -14,7 +14,7 @@
       }
       
       @media screen and (max-width: 479px){#panel-list-control{display:none;}}
-      
+      .main-info{text-align: center;}
       .icons{
         text-transform: uppercase;
         text-align: center;
@@ -22,7 +22,10 @@
         font-size: .85em;
         text-shadow: 0 0 10px red;
       }
-
+      .infoWindowBar{
+        margin: auto;
+        width: 80%;
+      }
       .icon-titles{
         text-align: center;
         font-size: 1.3em;
@@ -30,6 +33,15 @@
         text-shadow: 0 0 10px black;
         padding-top:20px;
       }
+      #armed-icon{
+        float: right;
+        height: 50px;
+        margin-right: 10px;
+      }
+      .census-title{
+        text-align: center;
+      }
+
 
       #title-bar{
         min-height: 60px;

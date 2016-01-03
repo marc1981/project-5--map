@@ -18,7 +18,8 @@ $(function(){
 	    		'race_ethnicity': ko.observable(data.information[i].race_ethnicity),
 	    		'age': ko.observable(data.information[i].age),
 	    		'status': ko.observable(data.information[i].status),
-	    		'carried_weapon': ko.observable(data.information[i].carried_weapon)
+	    		'carried_weapon': ko.observable(data.information[i].carried_weapon),
+	    		'armedIcon': ko.observable('img/' + data.information[i].carried_weapon + '.png')
 	    	});
 	    }
 	
@@ -32,6 +33,7 @@ $(function(){
 	    	};
 	    }, this);
 
+
 	    this.icon = ko.computed(function(){
 	    	var icon;
 	    	var iconName = this.information()[0].status();
@@ -44,7 +46,7 @@ $(function(){
 
 	    this.marker = ko.observable(new google.maps.Marker({
 	    	position: this.mapPoint(),
-	    	title: "Location: " + this.street() + " - Date: " + this.eventDate(),
+	    	title: "Location: " + this.street() + " --- Date: " + this.eventDate(),
 	    	icon: this.icon() 
 	    }));
 
@@ -91,63 +93,6 @@ $(function(){
 		}, this);
 	};
 
-/***************************************************
-		function onDataReceived(data, status, xhr){
-            console.log(data);
-            console.log(status);
-            console.log(xhr);
-            $('#census-info').text(data[1][0]);
-
-        }
-
-        function onError(xhr, status, error){
-
-            console.log(xhr);
-            console.log(status);
-            console.log(error);
-            var msg;
-            if (xhr.statusText == "error"){
-               msg = "No!";
-            } else if (!xhr.responseJSON ) {
-                msg = "TIMEOUT!";
-            }
-
-            else{
-                msg= "Unable to communicate.";
-            }
-
-            alert(msg);
-        }
-
-		this.locationURL = ko.computed(function(){    
-                var request = 
-                {
-                	url: buildLocationURL(this.census_code),
-                    type: 'GET',
-                    success: onDataReceived,
-                   // headers:{ Accept: 'application/json'},
-                    error: onError,
-                    timeout: 5000
-                }
-
-                $.ajax(request);
-            })
-
-		function buildLocationURL(census_code){
-		    var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
-		    var updateTemplate = templateURL.replace('{CODE}', this.census_code);
-		    return updateTemplate;
-		}
-
-
-
-
-
-
-
-
-*/
-
 	var remoteDataHelper = {
 		gettingCensusData: false,
 
@@ -177,10 +122,32 @@ $(function(){
 						console.log(data);
             			console.log(status);
             			console.log(xhr);
+            			
+            			var totalPop = data[1][0];
+            			var whitePop = data[1][1];
+            			var blackPop = data[1][2];
+            			var latinoPop = data[1][3];
 
-                			event.censusData.push({
-                  				'text': data[1][0]
-                				});
+            			var minPercent = ((totalPop - whitePop)/totalPop) * 100;
+            			var minPerFormat = minPercent.toFixed(2) + '%';
+            			
+            			function formatNumber (num) {
+    						return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+						}
+
+						totalPopFormatted = formatNumber(totalPop);
+						whitePopFormatted = formatNumber(whitePop);
+						blackPopFormatted = formatNumber(blackPop);
+						latinoPopFormatted = formatNumber(latinoPop);
+                		
+                		event.censusData.push({
+                			'totalPop': totalPopFormatted, 
+                			'whitePop': whitePopFormatted,
+                			'blackPop': blackPopFormatted,
+                			'latinoPop': latinoPopFormatted,
+                			'minPercent': minPerFormat
+                		});
+
 						self.gettingCensusData = false;
 			            datastatus.gettingdata(self.isGettingData());
 			          },
@@ -234,11 +201,7 @@ $(function(){
 				method: "notifyWhenChangesStop"
 			}
 		});
-/*
-		incidentDataMain = incidentData.sort(function(a,b){
 
-		})
-*/
 	    incidentDataMain = incidentData;
 
 		for (var incident in incidentDataMain) {
@@ -460,7 +423,7 @@ $(function(){
 
 
 	function buildCensusURL(census_code){
-    	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
+    	var templateURL = 'http://api.census.gov/data/2012/acs5?get=B01003_001E,B02001_002E,B02001_003E,B03001_003E,NAME&for=county:{CODE}&in=state:48&key=06682d6716f20fd04b7df6fafdaa0a623f5e6817';
     	var updateTemplate = templateURL.replace('{CODE}', census_code);
     	return updateTemplate;
 	}
