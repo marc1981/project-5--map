@@ -23,12 +23,24 @@
           infowindow: { incident: selectedLocation, messages: datastatus }"></div>
     <div id ="controls">
     <div id="panel-list" class="test-list-control">
-      <div class="icon-titles">Display locations based<br>on incident result:</div>
-      <ul class="event-list-filters" data-bind="foreach: filters">
-        <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
-          <p class="icons" data-bind="text: status"></p><img data-bind="attr: {src: imgSrc, alt: status}" />
-        </li>
-      </ul>
+      <div id="largePanel">
+          <div class="icon-titles">Display locations based<br>on incident result:</div>
+          <ul class="event-list-filters" data-bind="foreach: filters">
+            <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
+              <p class="icons" data-bind="text: status"></p><img data-bind="attr: {src: imgSrc, alt: status}" />
+            </li>
+          </ul>
+      </div>
+      <div id="smallPanel">
+        <div class="holder">
+          <div class="small-title">Display locations based<br>on incident result:</div>
+          <ul class="small-event-list-filters" data-bind="foreach: filters">
+            <li data-bind="click: $parent.toggleFilter, attr: {title: hover() }">
+              <p class="small-icons" data-bind="text: status"></p><img class="smallImg" data-bind="attr: {src: imgSrc, alt: status}" />
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
       <div id="incident-list" class="event-list-control">
         <div id="event-list-menu">
@@ -39,7 +51,6 @@
           <div class="search-box">
             <input type="search" placeholder="Search incidents..." id="incident-search" data-bind="textInput: searchtext"/><button class="search-box-clear" data-bind="click: clearSearchText"><span class="fa fa-times-circle"></span></button>
           </div>
-
           <div class="event-list">
             <p class="event-list-empty" data-bind="visible: emptysearch">No matching locations found.</p>
             <ul data-bind="foreach: incidents" class="event-list-ul">
@@ -99,11 +110,11 @@
       </div>
     </div>
     <script src="js/jquery-1.11.3.min.js"></script>
-    <script src="js/knockout-3.4.0.js"></script>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-c7fz6QBhSC8Y6UX6iGCdQdrNebqs918">
-    </script>
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/knockout-3.4.0.js"></script>    
+    <!--async loading for google map is unecessary, as there is no functionality without the map displayed. Defered loading is okay, because the map relies on the the other scripts to function-->
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-c7fz6QBhSC8Y6UX6iGCdQdrNebqs918">
+    </script>    
+    <script async src="js/data.js"></script>
+    <script async src="js/app.js"></script>
   </body>
 </html>

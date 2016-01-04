@@ -1,4 +1,5 @@
 $(function(){
+	'use strict';
 	//Creates an object that holds all the information for each officer-involved shooting event.
 	var Incident = function(data){
 		this.street = ko.observable(data.street);
@@ -79,9 +80,9 @@ $(function(){
 		this.imgSrc = ko.computed(function(){
 			var filename;
 			if (this.display()) {
-				filename = "img/" + this.status() + "-large.png"
+				filename = "img/" + this.status() + "-large.png";
 			} else {
-				filename = "img/" + this.status() + "-nonselect.png"
+				filename = "img/" + this.status() + "-nonselect.png";
 			}
 			return filename;
 		}, this);
@@ -140,13 +141,13 @@ $(function(){
             			
             			//Adds commas to numbers > 3 digits in length.
             			function formatNumber (num) {
-    						return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+    						return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
 						}
 
-						totalPopFormatted = formatNumber(totalPop);
-						whitePopFormatted = formatNumber(whitePop);
-						blackPopFormatted = formatNumber(blackPop);
-						latinoPopFormatted = formatNumber(latinoPop);
+						var totalPopFormatted = formatNumber(totalPop);
+						var whitePopFormatted = formatNumber(whitePop);
+						var blackPopFormatted = formatNumber(blackPop);
+						var latinoPopFormatted = formatNumber(latinoPop);
                 		
                 		event.censusData.push({
                 			'totalPop': totalPopFormatted, 
