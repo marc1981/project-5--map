@@ -111,7 +111,7 @@
     </div>
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/knockout-3.4.0.js"></script>    
-    <!--async loading for google map is unecessary, as there is no functionality without the map displayed. Defered loading is okay, because the map relies on the the other scripts to function-->
+    <!--async loading for google map is unecessary, as there is no functionality without the map displayed and all other API data is acquired asynchronously. Defer ensures map loads in the order it is listed, and it will only be executed after the HTML parser has completed. The two other JS files (data.js & app.js) are dependent on the map API, so they can be delayed via async loading.-->
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-c7fz6QBhSC8Y6UX6iGCdQdrNebqs918">
     </script>    
     <script async src="js/data.js"></script>
