@@ -1,15 +1,15 @@
 This Map Displays all of the reported Officer-Involved Shootings in the State of Texas for the months of September and October of 2015. The data was pulled from the individual incident reports found on the [State Attorney General's website.](https://www.texasattorneygeneral.gov/cj/peace-officer-involved-shooting-report)
 
-*To view the map go to: http://marc1981.github.io/project-5--map
+* To view the map go to: http://marc1981.github.io/project-5--map
 
-##Listed for each incident is:
-1.) the incident's location
-2.) the date of the incident
-3.) the race/ethnicity of the individual shot
-4.) the outcome of the shooting (injury or death)
-5.) whether the individual was armed or unarmed
-6.) a link to the official incident report
-7.) demographic data for the county where the shooting occured.
+## Listed for each incident is:
+1. the incident's location
+2. the date of the incident
+3. the race/ethnicity of the individual shot
+4. the outcome of the shooting (injury or death)
+5. whether the individual was armed or unarmed
+6. a link to the official incident report
+7. demographic data for the county where the shooting occurred.
 
 Demographic data was obtained from the U.S. Census Bureau's API and is based on the most recent year that the information is available (currently 2014).
 
@@ -21,12 +21,12 @@ Included in the document's folder are all of the police reports in PDF format.
 
 Additional notes:
 
-*CSS was minified using https://cssminifier.com/
+* CSS was minified using https://cssminifier.com/
 
-*Census codes were found using https://www.zipinfo.com/search/zipcode.htm
+* Census codes were found using https://www.zipinfo.com/search/zipcode.htm
 
-*Lat and long coordinates were found using: http://www.latlong.net/
+* Lat and long coordinates were found using: http://www.latlong.net/
 
-*Help with number formatting came from http://blog.tompawlak.org/number-currency-formatting-javascript
+* Help with number formatting came from http://blog.tompawlak.org/number-currency-formatting-javascript
 
-*Help with GET requests came from https://www.udemy.com/javascript-and-jquery-basics-for-beginners
+* Help with GET requests came from https://www.udemy.com/javascript-and-jquery-basics-for-beginners
